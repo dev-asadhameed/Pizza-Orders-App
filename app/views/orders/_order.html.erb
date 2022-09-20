@@ -1,0 +1,32 @@
+<hr>
+<div id="order-<%= order.uuid %>" style="display: flex;">
+  <div style='width: 50%;'>
+    <div> ID: <%= order.uuid %> </div>
+    <div> Created: <%= order.created_at %> </div>
+    <div> Promotion Codes: <%= order.promotion_codes %> </div>
+    <div> Discount Codes: <%= order.discount_code %> </div>
+    <br>
+    <div> Total Price: <%= order.total_price %> </div>
+    <%= form_with url: order_path(order.uuid), html: { method: :put }, remote: true do |f| %>
+      <%= f.submit 'Complete Order' %>
+    <% end %>
+  </div>
+  <div>
+    <div> Items </div>
+    <ul>
+      <%order.items.each do |item| %>
+        <li>
+          <%= "#{item[:name]} (#{item[:size]})" %>
+          <ul>
+            <% if item[:add].any? %>
+              <li><%= "Add: #{item[:add].join(', ')}" %></li>
+            <% end %>
+            <% if item[:remove].any? %>
+              <li><%= "Remove: #{item[:remove].join(', ')}" %></li>
+            <% end %>
+          </ul>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</div>
