@@ -1,0 +1,8 @@
+<h1>Orders</h1>
+<%@orders.each do |order| %>
+  <%= render 'order', order: order %>
+<%end%>
+
+<% if @orders.none? %>
+<h4>No Open Orders</h4>
+<%end%>
